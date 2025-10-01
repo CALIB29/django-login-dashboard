@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Delete Item{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Delete Item</h3>
+            </div>
+            <div class="card-body">
+                <p class="text-center">Are you sure you want to delete "{{ item.name }}"?</p>
+                <form method="post" class="d-grid gap-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
