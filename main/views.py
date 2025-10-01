@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Item
 from .forms import ItemForm
 
 def home(request):
-    return render(request, 'main/home.html')
+    return render(request, 'main/home.html', {'title': 'Home'})
 
 def login_view(request):
     if request.method == 'POST':
@@ -27,6 +27,11 @@ def login_view(request):
 def dashboard(request):
     items = Item.objects.all()
     return render(request, 'main/dashboard.html', {'items': items})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You have been successfully logged out.')
+    return redirect('home')
 
 @login_required
 def item_create(request):
